@@ -31,6 +31,8 @@ class BaseViewController: UIViewController {
     /// 默认选中的按钮
     lazy var selectedButton = UIButton()
     
+    lazy var titleButtons = [UIButton]()
+    
     //==========================================================================================================
     // MARK: - 系统方法
     //==========================================================================================================
@@ -78,6 +80,15 @@ class BaseViewController: UIViewController {
         let height = kScreenH - titleScorllView.bounds.height
         contentScrollView.frame = CGRect(x: 0, y: CGRectGetMaxY(titleScorllView.frame), width: kScreenW, height: height)
         view.addSubview(contentScrollView)
+        
+        // 设置视图容器的属性
+        // 代理
+        contentScrollView.delegate = self
+        // 分页
+        contentScrollView.pagingEnabled = true
+        // 取消弹簧效果
+        contentScrollView.bounces = false
+
         
     }
     
@@ -152,6 +163,9 @@ class BaseViewController: UIViewController {
             {
                 titleButtonClick(titleBtn)
             }
+            
+            // 添加按钮到数值中
+            titleButtons.append(titleBtn)
         }
         
         // 设置标题栏内容尺寸
@@ -211,5 +225,20 @@ class BaseViewController: UIViewController {
         contentScrollView.addSubview(vc.view)
     }
 
+}
+
+// MARK: - UIScrollViewDelegate
+extension BaseViewController: UIScrollViewDelegate
+{
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        
+        // 获取页码
+        let index = scrollView.contentOffset.x / kScreenW
+        // 获取按钮
+        let button = titleButtons[Int(index)]
+        // 点击获取的按钮
+        titleButtonClick(button)
+        
+    }
 }
 
