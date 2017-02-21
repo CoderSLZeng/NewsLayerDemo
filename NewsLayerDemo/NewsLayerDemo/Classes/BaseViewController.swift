@@ -20,18 +20,20 @@ class BaseViewController: UIViewController {
     let kScreenH = UIScreen.mainScreen().bounds.height
     
     /// 标题栏
-    let titleScorllView = UIScrollView()
+    private let titleScorllView = UIScrollView()
     
     /// 视图容器
-    let contentScrollView = UIScrollView()
+    private let contentScrollView = UIScrollView()
     
     //==========================================================================================================
     // MARK: - 懒加载
     //==========================================================================================================
     /// 默认选中的按钮
-    lazy var selectedButton = UIButton()
+    private lazy var selectedButton = UIButton()
     
-    lazy var titleButtons = [UIButton]()
+    private lazy var titleButtons = [UIButton]()
+    
+    private lazy var isInitialize: Bool = false
     
     //==========================================================================================================
     // MARK: - 系统方法
@@ -40,23 +42,27 @@ class BaseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // 1.导航条标题
-        self.navigationItem.title = "网易新闻"
         
-        // 2.取消自动调整内边距
+        // 1.取消自动调整内边距
         self.automaticallyAdjustsScrollViewInsets = false
         
-        // 3.标题栏
+        // 2.标题栏
         setupTitleScrollView()
         
-        // 4.视图容器
+        // 3.视图容器
         setupContentScrollView()
         
-        // 5.添加所有子控制器
-        addAllChildVC()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
         
-        // 6.设置所有标题文字
-        setupAllTitle()
+        super.viewWillAppear(animated)
+        
+        if isInitialize == false {
+            // 设置所有标题文字
+            setupAllTitle()
+            isInitialize = true
+        }
     }
     
     //==========================================================================================================
@@ -92,30 +98,6 @@ class BaseViewController: UIViewController {
         
     }
     
-    
-    /**
-     添加所有子控制器
-     */
-    func addAllChildVC()  {
-        // 头条
-        addChildViewController(HeaderLineViewController(), title: "头条")
-        
-        // 热点
-        addChildViewController(HotPointViewController(), title: "热点")
-        
-        // 视频
-        addChildViewController(VideoViewController(), title: "视频")
-        
-        // 社会
-        addChildViewController(SocietyViewController(), title: "社会")
-        
-        // 科技
-        addChildViewController(ScienceViewController(), title: "科技")
-        
-        // 订阅
-        addChildViewController(SubscriptionViewController(), title: "订阅")
-    }
-    
     /**
      添加子控制器和标题
      
@@ -123,6 +105,7 @@ class BaseViewController: UIViewController {
      - parameter title:           标题
      */
     func addChildViewController(childController: UIViewController, title: String) {
+
         childController.title = title
         self.addChildViewController(childController)
     }

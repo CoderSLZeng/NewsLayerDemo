@@ -18,6 +18,7 @@
 		92F9CAEE1E5BF4AA002F3FFE /* SocietyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F9CAE81E5BF4AA002F3FFE /* SocietyViewController.swift */; };
 		92F9CAEF1E5BF4AA002F3FFE /* SubscriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F9CAE91E5BF4AA002F3FFE /* SubscriptionViewController.swift */; };
 		92F9CAF01E5BF4AA002F3FFE /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F9CAEA1E5BF4AA002F3FFE /* VideoViewController.swift */; };
+		92F9CAF21E5C3201002F3FFE /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F9CAF11E5C3201002F3FFE /* NewsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		92F9CAE81E5BF4AA002F3FFE /* SocietyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocietyViewController.swift; sourceTree = "<group>"; };
 		92F9CAE91E5BF4AA002F3FFE /* SubscriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionViewController.swift; sourceTree = "<group>"; };
 		92F9CAEA1E5BF4AA002F3FFE /* VideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
+		92F9CAF11E5C3201002F3FFE /* NewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 			children = (
 				92F9CAE41E5BF4AA002F3FFE /* Other */,
 				92F9CAD41E5BE702002F3FFE /* BaseViewController.swift */,
+				92F9CAF11E5C3201002F3FFE /* NewsViewController.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -175,6 +178,7 @@
 				92F9CAED1E5BF4AA002F3FFE /* ScienceViewController.swift in Sources */,
 				92F9CAD51E5BE702002F3FFE /* BaseViewController.swift in Sources */,
 				92F9CAEB1E5BF4AA002F3FFE /* HeaderLineViewController.swift in Sources */,
+				92F9CAF21E5C3201002F3FFE /* NewsViewController.swift in Sources */,
 				92F9CAEC1E5BF4AA002F3FFE /* HotPointViewController.swift in Sources */,
 				92F9CAEE1E5BF4AA002F3FFE /* SocietyViewController.swift in Sources */,
 			);
@@ -326,6 +330,7 @@
 				92F9CACD1E5BE3E2002F3FFE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
