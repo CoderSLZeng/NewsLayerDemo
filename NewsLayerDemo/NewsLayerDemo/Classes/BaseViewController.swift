@@ -294,6 +294,13 @@ extension BaseViewController: UIScrollViewDelegate
         LeftBtn.transform = CGAffineTransformMakeScale(scaleL * 0.3 + 1, scaleL * 0.3 + 1)
         rightBtn.transform = CGAffineTransformMakeScale(scaleR * 0.3 + 1, scaleR * 0.3 + 1)
         
+        // 标题文字颜色渐变
+        let colorL = UIColor(red: scaleL, green: 0, blue: 0, alpha: 1.0)
+        let colorR = UIColor(red: scaleR, green: 0, blue: 0, alpha: 1.0)
+        
+        LeftBtn.setTitleColor(colorL, forState: UIControlState.Normal)
+        rightBtn.setTitleColor(colorR, forState: UIControlState.Normal)
+        
         
     }
 }
