@@ -25,6 +25,11 @@ class BaseViewController: UIViewController {
     /// 视图容器
     let contentScrollView = UIScrollView()
     
+    //==========================================================================================================
+    // MARK: - 懒加载
+    //==========================================================================================================
+    /// 默认选中的按钮
+    lazy var selectedButton = UIButton()
     
     //==========================================================================================================
     // MARK: - 系统方法
@@ -37,7 +42,7 @@ class BaseViewController: UIViewController {
         self.navigationItem.title = "网易新闻"
         
         // 2.取消自动调整内边距
-        self.navigationController?.automaticallyAdjustsScrollViewInsets = false
+        self.automaticallyAdjustsScrollViewInsets = false
         
         // 3.标题栏
         setupTitleScrollView()
@@ -74,7 +79,6 @@ class BaseViewController: UIViewController {
         contentScrollView.frame = CGRect(x: 0, y: CGRectGetMaxY(titleScorllView.frame), width: kScreenW, height: height)
         view.addSubview(contentScrollView)
         
-        contentScrollView.backgroundColor = UIColor.blueColor()
     }
     
     
@@ -138,10 +142,73 @@ class BaseViewController: UIViewController {
             let vc = self.childViewControllers[i]
             titleBtn.setTitle(vc.title, forState: UIControlState.Normal)
             titleBtn.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+            
+            // 添加按钮监听事件
+            titleBtn.tag = i
+            titleBtn.addTarget(self, action: #selector(BaseViewController.titleButtonClick(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            
+            // 默认选中第一个按钮
+            if 0 == i
+            {
+                titleButtonClick(titleBtn)
+            }
         }
         
         // 设置标题栏内容尺寸
         titleScorllView.contentSize = CGSize(width: titleSVContentSizeW, height: 0)
+        contentScrollView.contentSize = CGSize(width: Int(kScreenW) * count, height: 0)
+    }
+    
+    //==========================================================================================================
+    // MARK: - 处理监听事件
+    //==========================================================================================================
+    
+    /**
+     监听按钮点击事件
+     
+     - parameter button: 被点击的按钮
+     */
+    func titleButtonClick(button: UIButton) {
+        
+        selectedTitleButton(button)
+        
+        let index = button.tag
+        showViewController(index)
+        
+        contentScrollView.contentOffset = CGPoint(x: index * Int(kScreenW), y: 0)
+    }
+    
+    //==========================================================================================================
+    // MARK: - 自定义方法
+    //==========================================================================================================
+    
+    /**
+     选中标题按钮
+     
+     - parameter button: 被选中的标题按钮
+     */
+    func selectedTitleButton(button: UIButton) {
+        
+        selectedButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+        button.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
+        selectedButton = button
+    }
+    
+    /**
+     显示控制器
+     
+     - parameter index: 子控制器的下标
+     */
+    func showViewController(index: Int) {
+        let vc = self.childViewControllers[index]
+        
+        // 判断控制器的视图是否加载
+        if vc.isViewLoaded() {
+            return
+        }
+        
+        vc.view.frame = CGRect(x: CGFloat(index) * kScreenW, y: 0, width: kScreenW, height: contentScrollView.bounds.height)
+        contentScrollView.addSubview(vc.view)
     }
 
 }
