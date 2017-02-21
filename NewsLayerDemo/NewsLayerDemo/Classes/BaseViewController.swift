@@ -202,9 +202,13 @@ class BaseViewController: UIViewController {
      - parameter button: 被选中的标题按钮
      */
     func selectedTitleButton(button: UIButton) {
-        
+        // 默认缩放比例
+        let scale: CGFloat = 1.3
+        // 取消之前按钮缩放
+        selectedButton.transform = CGAffineTransformIdentity
         selectedButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         button.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
+        button.transform = CGAffineTransformMakeScale(scale, scale)
         selectedButton = button
         
         // 设置按钮标题居中
@@ -212,9 +216,9 @@ class BaseViewController: UIViewController {
     }
     
     /**
-     <#Description#>
+     设置按钮标题居中
      
-     - parameter button: <#button description#>
+     - parameter button: 按钮
      */
     func setupTitleCenter(button: UIButton) {
         // 本质修改标题栏的偏移量
@@ -258,12 +262,38 @@ extension BaseViewController: UIScrollViewDelegate
 {
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         
-        // 获取页码
-        let index = scrollView.contentOffset.x / kScreenW
+        // 获取当前页码
+        let index = Int(scrollView.contentOffset.x / kScreenW)
         // 获取按钮
-        let button = titleButtons[Int(index)]
+        let button = titleButtons[index]
         // 点击获取的按钮
         titleButtonClick(button)
+    }
+    
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        // 获取当前页码
+        let index = Int(scrollView.contentOffset.x / kScreenW)
+        // 获取左边的按钮
+        let LeftBtn = self.titleButtons[index]
+        
+        // 获取右边的按钮
+        var rightBtn = UIButton()
+        let indexR = index + 1
+        let count = self.titleButtons.count
+        if indexR < count  {
+            rightBtn = self.titleButtons[Int(indexR)]
+        }
+        
+        // 计算缩放比例
+        let scale = scrollView.contentOffset.x / kScreenW
+        let scaleR = scale -  CGFloat(index)
+        let scaleL = 1 - scaleR
+        
+        // 设置按钮形变
+        LeftBtn.transform = CGAffineTransformMakeScale(scaleL * 0.3 + 1, scaleL * 0.3 + 1)
+        rightBtn.transform = CGAffineTransformMakeScale(scaleR * 0.3 + 1, scaleR * 0.3 + 1)
+        
         
     }
 }
