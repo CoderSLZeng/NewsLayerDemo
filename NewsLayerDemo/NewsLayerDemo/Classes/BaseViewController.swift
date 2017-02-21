@@ -206,6 +206,32 @@ class BaseViewController: UIViewController {
         selectedButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         button.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
         selectedButton = button
+        
+        // 设置按钮标题居中
+        setupTitleCenter(button)
+    }
+    
+    /**
+     <#Description#>
+     
+     - parameter button: <#button description#>
+     */
+    func setupTitleCenter(button: UIButton) {
+        // 本质修改标题栏的偏移量
+        var offsetX = button.center.x - kScreenW * 0.5
+        
+        // 判断offsetX越界的处理
+        if offsetX < 0
+        {
+            offsetX = 0
+        }
+        
+        let maxOffsetX = self.titleScorllView.contentSize.width - kScreenW
+        if offsetX > maxOffsetX {
+            offsetX = maxOffsetX
+        }
+        
+        self.titleScorllView.setContentOffset(CGPoint(x: offsetX, y:0), animated: true)
     }
     
     /**
